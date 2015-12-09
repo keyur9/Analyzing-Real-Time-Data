@@ -17,9 +17,9 @@ shinyUI(navbarPage("Real Time Clustering", windowTitle = "Real Time Clustering",
                    tabPanel("Dashboard",
                             sidebarLayout(
                               sidebarPanel(
-                                selectInput('xcol', 'X Variable', names(loadData()[-5]),selected=names(loadData())[[1]]),
-                                selectInput('ycol', 'Y Variable', names(loadData()[-5]),
-                                            selected=names(loadData())[[2]]),
+                                selectInput('xcol', 'X Variable', names(iris[-5]),selected=names(iris)[[1]]),
+                                selectInput('ycol', 'Y Variable', names(iris[-5]),
+                                            selected=names(iris)[[2]]),
                                 numericInput('clusters', 'Cluster count', 3,
                                              min = 1, max = 9),
                                 hr(),
@@ -101,7 +101,7 @@ shinyUI(navbarPage("Real Time Clustering", windowTitle = "Real Time Clustering",
                                          
                                          selectInput("species", 
                                                      label = "Select the Species",
-                                                     choices = list("versicolor", "virginica","setosa") # , # (loadData()[5]) loadData()[5]
+                                                     choices = list("versicolor", "virginica","setosa") # , # (iris[5]) iris[5]
                                          ) # selected = "versicolor"
                                   ),
                                   

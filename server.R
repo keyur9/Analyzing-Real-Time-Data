@@ -40,31 +40,47 @@ shinyServer(function(input, output, session) {
   # Obeserving send button event
   
   observeEvent(input$send, {
-    file.remove("Dynamic_Clustering.png") # reomve file
-    dev.set()
+    datadf <- data.frame(loadData())
     working_dir <- getwd()
-    filename <-"/Dynamic_Clustering.png"
-    Output_file<-paste(working_dir,filename,sep = "")
-    png(filename=Output_file)
-    par(mar = c(5.1, 4.1, 0, 1))
-    plot(selectedData(),
-         col = clusters()$cluster,
-         pch = 20, cex = 3)
-    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
-    dev.off()
     
-    dev.set()
-    working_dir <- getwd()
-    filename <-"/Dynamic_Clustering.png"
-    attachment <- paste(working_dir,filename,sep = "")
-    dev.off()
+    if(input$plot_type == "base"){
+      dev.set()
+      filename <-"/Dynamic_Clustering.png"
+      Output_file<-paste(working_dir,filename,sep = "")
+      png(filename=Output_file)
+      par(mar = c(5.1, 4.1, 0, 1))
+      plot(selectedData(),
+           col = clusters()$cluster,
+           pch = 20, cex = 3)
+      points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+      attachment <- paste(working_dir,filename,sep = "")
+      dev.off()    
+    }
+    
+    if(input$plot_type == "rCharts"){
+      p1 <- hPlot(x=input$xcol, y=input$ycol, type="bubble", group ="Species",size = input$clusters, data=datadf) # "Petal.Width"
+      p1$save('rcharts.html',standalone=TRUE)
+      #p1$show('iframesrc', cdn=TRUE)
+      filename <-"/rcharts.html"
+      attachment <- paste(working_dir,filename,sep = "")
+    }
+    
+    if(input$plot_type == "polyChart"){
+      plot1 <- nPlot(Sepal.Length ~ Sepal.Width,data=datadf, 
+                     type='scatterChart') #group='Species',
+      plot1$xAxis(axisLabel = 'Sepal.Length')
+      plot1$yAxis(axisLabel = 'Sepal.Width')
+      plot1$save('polyCharts.html',standalone=TRUE)
+      filename <-"/polyCharts.html"
+      attachment <- paste(working_dir,filename,sep = "")
+    }
     
     sender <- "keyur.kv@gmail.com"
     recipients <- input$email #c("keyur.kv@gmail.com")
     send.mail(from = sender,
               to = recipients,
-              subject="Hello from R",
-              body = "Testing Shiny with R",
+              subject="Report from R",
+              body = "Dear Reader, \n \nPlease find your evening report",
               smtp = list(host.name = "smtp.gmail.com", port = 465, 
                           user.name="keyur.kv@gmail.com", passwd="keyur@888", ssl=TRUE),
               authenticate = TRUE,
@@ -109,19 +125,34 @@ shinyServer(function(input, output, session) {
   
   # Function to capture User's input
   observeEvent(input$download, {
-    file.remove("Dynamic_Clustering.png")
-    dev.set()
-    working_dir <- getwd()
-    filename <-"/Dynamic_Clustering.png"
-    Output_file<-paste(working_dir,filename,sep = "")
-    png(filename=Output_file)
-    par(mar = c(5.1, 4.1, 0, 1))
-    plot(selectedData(),
-         col = clusters()$cluster,
-         pch = 20, cex = 3)
-    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
-    dev.off()
-    session$sendCustomMessage(type = 'testmessage',message = list(a = 1, b = 'text'))
+    datadf <- data.frame(loadData())
+    
+    if(input$plot_type == "base"){
+      dev.set()
+      working_dir <- getwd()
+      filename <-"/Dynamic_Clustering.png"
+      Output_file<-paste(working_dir,filename,sep = "")
+      png(filename=Output_file)
+      par(mar = c(5.1, 4.1, 0, 1))
+      plot(selectedData(),
+           col = clusters()$cluster,
+           pch = 20, cex = 3)
+      points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+      dev.off()    
+    }
+    
+    if(input$plot_type == "rCharts"){
+      p1 <- hPlot(x=input$xcol, y=input$ycol, type="bubble", group ="Species",size = input$clusters, data=datadf) # "Petal.Width"
+      p1$save('rcharts.html',standalone=TRUE)
+    }
+    
+    if(input$plot_type == "polyChart"){
+      plot1 <- nPlot(Sepal.Length ~ Sepal.Width,data=datadf, 
+                     type='scatterChart') #group='Species',
+      plot1$xAxis(axisLabel = 'Sepal.Length')
+      plot1$yAxis(axisLabel = 'Sepal.Width')
+      plot1$save('polyCharts.html',standalone=TRUE)
+    }
   })
   
   # Plot output based on User's input
@@ -283,7 +314,7 @@ shinyServer(function(input, output, session) {
   # Data Table
   output$table <- renderDataTable({
     dataTabledf <- data.frame(iris, "Clusters" = clusters()$cluster)
-    
+    datatable(dataTabledf)    
   }, options=list(pageLength=10,tableTools = list(sSwfPath = copySWF()),dom = 'T<"clear">lfrtip'))
   
 }

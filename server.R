@@ -12,6 +12,7 @@ ifelse(("caret" %in% rownames(installed.packages()) == FALSE),install.packages("
 ifelse(("mailR" %in% rownames(installed.packages()) == FALSE),install.packages("mailR"),suppressPackageStartupMessages(library(mailR)))
 ifelse(("rCharts" %in% rownames(installed.packages()) == FALSE),install.packages("rCharts"),suppressPackageStartupMessages(library(rCharts)))
 ifelse(("htmlwidgets" %in% rownames(installed.packages()) == FALSE),install.packages("htmlwidgets"),suppressPackageStartupMessages(library(htmlwidgets)))
+ifelse(("base64enc" %in% rownames(installed.packages()) == FALSE),install.packages("base64enc"),suppressPackageStartupMessages(library(base64enc)))
 
 # Removing Items from environment
 remove(list=ls())
@@ -40,7 +41,7 @@ shinyServer(function(input, output, session) {
   # Obeserving send button event
   
   observeEvent(input$send, {
-    datadf <- data.frame(loadData())
+    datadf <- data.frame(iris)
     working_dir <- getwd()
     
     if(input$plot_type == "base"){
@@ -125,7 +126,7 @@ shinyServer(function(input, output, session) {
   
   # Function to capture User's input
   observeEvent(input$download, {
-    datadf <- data.frame(loadData())
+    datadf <- data.frame(iris)
     
     if(input$plot_type == "base"){
       dev.set()

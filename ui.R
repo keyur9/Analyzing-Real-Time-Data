@@ -42,9 +42,9 @@ shinyUI(navbarPage("Real Time Clustering", windowTitle = "Real Time Clustering",
                               mainPanel(  
                                 
                                 conditionalPanel(
-                                  condition = "input.plot_type == 'rCharts'",showOutput("myChart","Highcharts")),
+                                  condition = "input.plot_type == 'rCharts'",showOutput("myChart","highcharts")),
                                 conditionalPanel(
-                                  condition = "input.plot_type == 'polyChart'",showOutput("polyChart","Nvd3")),# polycharts
+                                  condition = "input.plot_type == 'polyChart'",showOutput("polyChart","nvd3")),# polycharts
                                 conditionalPanel(
                                   condition = "input.plot_type == 'base'",plotOutput('plot1'))
                               )

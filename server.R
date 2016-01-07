@@ -4,7 +4,6 @@
 # Date: 12/08/2015
 ###
 
-
 # Installing required packages
 ifelse(("shiny" %in% rownames(installed.packages()) == FALSE),install.packages("shiny"),suppressPackageStartupMessages(library(shiny)))
 ifelse(("DT" %in% rownames(installed.packages()) == FALSE),install.packages("DT"),suppressPackageStartupMessages(library(DT)))
@@ -83,7 +82,7 @@ shinyServer(function(input, output, session) {
               subject="Report from R",
               body = "Dear Reader, \n \nPlease find your evening report",
               smtp = list(host.name = "smtp.gmail.com", port = 465, 
-                          user.name="keyur.kv@gmail.com", passwd="keyur@888", ssl=TRUE),
+                          user.name="", passwd="", ssl=TRUE),
               authenticate = TRUE,
               attach.files=attachment,
               send = TRUE)

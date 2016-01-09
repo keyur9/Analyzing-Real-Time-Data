@@ -1,0 +1,38 @@
+---
+title: "FirstPdf"
+author: "Keyur Doshi"
+date: "Monday, December 28, 2015"
+output:
+  html_document:
+    keep_md: yes
+  pdf_document: default
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents.
+#Pandoc.convert(f="FirstPdfMarkdown.md",format="pdf",options="-S")
+
+```{r, echo = FALSE}
+# Installing required packages
+ifelse(("shiny" %in% rownames(installed.packages()) == FALSE),install.packages("shiny"),suppressPackageStartupMessages(library(shiny)))
+ifelse(("rCharts" %in% rownames(installed.packages()) == FALSE),install.packages("rCharts"),suppressPackageStartupMessages(library(rCharts)))
+ifelse(("htmlwidgets" %in% rownames(installed.packages()) == FALSE),install.packages("htmlwidgets"),suppressPackageStartupMessages(library(htmlwidgets)))
+
+
+shinyApp(
+  
+  ui = fluidPage(
+    selectInput("region", "Region:", 
+                choices = colnames(WorldPhones)),
+    plotOutput("phonePlot")
+  ),
+  
+  server = function(input, output) {
+    output$phonePlot <- renderPlot({
+      barplot(WorldPhones[,input$region]*1000, 
+              ylab = "Number of Telephones", xlab = "Year")
+    })
+  },
+  
+  options = list(height = 500)
+)
+```

@@ -7,9 +7,8 @@ Authors@R: c(person("Keyur", "Doshi", email = "keyur.kv@gmail.com", role = c("au
 Description: Analyzing Real Time Data analysis using
     'shinyR' and other packages.
 License: MIT + file LICENSE
-LazyData: TRUE
-URL: https://github.com/keyur9/Analyzing-Real-Time-Data
-BugReports: https://github.com/keyur9/Analyzing-Real-Time-Data/issues
+URL: http://github.com/keyur9/Analyzing-Real-Time-Data
+BugReports: http://github.com/keyur9/Analyzing-Real-Time-Data/issues
 Depends: R (>= 2.10)
 Imports: dplyr
 Suggests:rmarkdown,

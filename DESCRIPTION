@@ -1,0 +1,16 @@
+Package: Analyzing-Real-Time-Data
+Type: Package
+Title: Analyzing Real Time Data Analysis using 'ShinyR' and other packages
+Version: 0.0.0.1
+Date: 2017-11-3
+Authors@R: c(person("Keyur", "Doshi", email = "keyur.kv@gmail.com", role = c("aut", "cre")))
+Description: Analyzing Real Time Data analysis using
+    'shinyR' and other packages.
+License: MIT + file LICENSE
+LazyData: TRUE
+URL: https://github.com/keyur9/Analyzing-Real-Time-Data
+BugReports: https://github.com/keyur9/Analyzing-Real-Time-Data/issues
+Depends: R (>= 2.10)
+Imports: dplyr
+Suggests:rmarkdown,
+    ggplot2

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/keyur9/Analyzing-Real-Time-Data.svg?branch=master)](https://travis-ci.org/keyur9/Analyzing-Real-Time-Data)
+
 # DataClustering
 Shiny Application for Data Clustering
 
